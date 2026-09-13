@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+
+# Generated frames
+frames/
+motion_frames/
+detected_frames/
+
+# Detection data
+detections/
+
+# Generated clips
+clips/
+
+# Generated outputs
+output/
+
+# Local videos
+videos/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Model files
+*.pt
+*.onnx
+
+# Generated extracted frames
+extracted_frames/
+
+# Generated video files
+*.mp4
