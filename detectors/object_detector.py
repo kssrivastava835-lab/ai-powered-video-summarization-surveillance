@@ -1,7 +1,5 @@
 import json
 
-from pathlib import Path
-
 from ultralytics import YOLO
 
 from configs.config import (
@@ -34,9 +32,9 @@ class ObjectDetector:
             f"Loading YOLO model: {model_name}"
         )
 
-        self.model = YOLO(
-            model_name
-        )
+        self.model = YOLO(model_name)
+
+        print("YOLO model loaded successfully")
 
 
     def detect_objects(self):
@@ -91,9 +89,7 @@ class ObjectDetector:
                     encoding="utf-8"
                 ) as file:
 
-                    metadata = json.load(
-                        file
-                    )
+                    metadata = json.load(file)
 
                 original_frame = metadata.get(
                     "original_frame"
@@ -105,11 +101,15 @@ class ObjectDetector:
 
 
             # ======================================
-            # RUN YOLO
+            # RUN YOLO - LOW MEMORY
             # ======================================
 
-            results = self.model(
-                str(image_path),
+            results = self.model.predict(
+                source=str(image_path),
+                imgsz=320,
+                conf=0.50,
+                device="cpu",
+                stream=True,
                 verbose=False
             )
 
@@ -129,15 +129,16 @@ class ObjectDetector:
                 for box in result.boxes:
 
                     class_id = int(
-                        box.cls[0]
+                        box.cls[0].item()
                     )
 
                     confidence = float(
-                        box.conf[0]
+                        box.conf[0].item()
                     )
 
                     bbox = (
                         box.xyxy[0]
+                        .cpu()
                         .tolist()
                     )
 
@@ -162,8 +163,7 @@ class ObjectDetector:
                                 coordinate,
                                 2
                             )
-                            for coordinate
-                            in bbox
+                            for coordinate in bbox
                         ]
 
                     })
