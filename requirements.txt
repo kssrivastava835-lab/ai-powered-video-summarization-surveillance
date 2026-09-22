@@ -1,5 +1,4 @@
-opencv-python
-
+opencv-python-headless
 numpy
 pandas
 matplotlib
@@ -8,7 +7,7 @@ streamlit
 fastapi
 uvicorn
 python-multipart
-ultralytics
+onnxruntime
 easyocr
 reportlab
 pillow

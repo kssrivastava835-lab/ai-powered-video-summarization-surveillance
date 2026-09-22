@@ -42,7 +42,7 @@ Thumbs.db
 
 # Model files
 *.pt
-*.onnx
+
 
 # Generated extracted frames
 extracted_frames/
